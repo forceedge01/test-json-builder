@@ -36,9 +36,29 @@ class Builder
         return $this;
     }
 
-    public function addScalar($value, $key = null)
+    public function add($value, $key = null)
     {
-        $this->json[$key] = $value;
+        if ($value instanceof Builder) {
+            $value = $value->get();
+        }
+
+        if ($key) {
+            $this->json[$key] = $value;
+        } else {
+            $this->json[] = $value;
+        }
+
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->json;
+    }
+
+    public function validate()
+    {
+        $this->validator->validate($this->json);
 
         return $this;
     }
@@ -50,8 +70,6 @@ class Builder
                 $this->json,
                 $this->validator->getSchema()
             );
-
-            $this->validator->validate($this->json);
         }
 
         return json_encode($this->json);

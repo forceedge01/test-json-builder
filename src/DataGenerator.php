@@ -12,23 +12,25 @@ class DataGenerator
         return $this->generateData($values, $schema);
     }
 
-    private function generateData($schema)
+    private function generateData($values, $schema)
     {
-        foreach ($schema as $index => $value) {
+        foreach ($schema as $index => $rule) {
             // If scalar, then value changes.
-            if (is_array($value)) {
-                $schema[$key] = $this->generateData($value);
+            if (is_array($values[$index])) {
+                $schema[$index] = $this->generateData($values[$index], $rule);
             } else {
-                $schema[$key] = $this->getData($value);
+                if (isset($values[$index])) {
+                    $schema[$index] = $this->getData($rule);
+                }
             }
         }
 
         return $schema;
     }
 
-    public function getData($value)
+    public function getData($rule)
     {
-        switch (gettype($value)) {
+        switch ($rule['type']) {
             case 'string':
                 return 'test-string-' . rand(1, 99999999);
 

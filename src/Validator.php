@@ -7,11 +7,9 @@ namespace Genesis\TestJson;
  */
 class Validator
 {
-    public function schema($schema)
+    public function __construct($schema)
     {
         $this->schema = $this->parse($schema);
-
-        return $this;
     }
 
     public function getSchema()
@@ -33,29 +31,6 @@ class Validator
     public function validate($values)
     {
         // Validate value against parsed schema.
-        // [
-        //     'name' => 'Abdul',
-        //     'dob' => '10-05-1989',
-        //     'age' => 30,
-        //     'address' => [
-        //         'line 1' => '54 george road',
-        //         'city' => 'Birmingham',
-        //         'post code' => 'B23 7QB',
-        //         'country' => 'United Kingdom',
-        //     ]
-        // ];
-        //
-        // [
-        //      'name' => 'string',
-        //      'dob' => 'string:/[0-9]{2}-[0-9]{2}-[0-9]{4}/',
-        //      'age' => 'int',
-        //      'address' => [
-        //          'line 1' => 'string',
-        //          'city' => 'string',
-        //          'post code' => 'string',
-        //          'country' => 'string',
-        //      ]
-        // ]
 
         // Validate that all passed in conforms to schema.
         // The schema forms the basis of validation so loop around the
