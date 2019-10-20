@@ -1,0 +1,11 @@
+{
+    "name": "genesis/test-json-builder",
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Genesis\\TestJson\\": "src/"
+        }
+    }
+}
